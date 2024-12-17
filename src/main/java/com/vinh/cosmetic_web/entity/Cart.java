@@ -27,8 +27,10 @@ public class Cart {
     User user;
 
     @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "cart")
+    @Builder.Default
     List<CartItem> cartItems = new ArrayList<>();
 }

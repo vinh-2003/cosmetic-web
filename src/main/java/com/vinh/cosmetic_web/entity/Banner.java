@@ -30,8 +30,10 @@ public class Banner {
     LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
+    @Builder.Default
     LocalDateTime endDate = LocalDateTime.now();
 
     @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 }

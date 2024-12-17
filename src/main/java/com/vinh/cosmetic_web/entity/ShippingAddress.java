@@ -32,8 +32,10 @@ public class ShippingAddress {
     String recipientAddress;
 
     @Column(name = "is_default")
+    @Builder.Default
     Boolean isDefault = false;
 
     @Column(name = "enabled")
+    @Builder.Default
     Boolean enabled = true;
 }

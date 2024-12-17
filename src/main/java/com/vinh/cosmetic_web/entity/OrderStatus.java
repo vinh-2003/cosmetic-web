@@ -28,5 +28,6 @@ public class OrderStatus {
     String status;
 
     @Column(name = "changed_at")
+    @Builder.Default
     LocalDateTime changedAt = LocalDateTime.now();
 }

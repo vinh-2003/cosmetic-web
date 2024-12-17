@@ -46,17 +46,22 @@ public class Product {
     String brand;
 
     @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "discount_percentage")
+    @Builder.Default
     Integer discountPercentage = 0;
 
     @Column(name = "average_rating")
+    @Builder.Default
     BigDecimal averageRating = BigDecimal.ZERO;
 
     @Column(name = "enabled")
+    @Builder.Default
     Boolean enabled = true;
 
     @OneToMany(mappedBy = "product")
+    @Builder.Default
     List<Review> reviews = new ArrayList<>();
 }

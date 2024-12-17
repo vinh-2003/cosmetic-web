@@ -30,17 +30,22 @@ public class Voucher {
     LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
+    @Builder.Default
     LocalDateTime endDate = LocalDateTime.now();
 
     @Column(name = "min_purchase")
+    @Builder.Default
     Long minPurchase = 0L;
 
     @Column(name = "usage_limit")
+    @Builder.Default
     Integer usageLimit = 1;
 
     @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "enabled")
+    @Builder.Default
     Boolean enabled = true;
 }

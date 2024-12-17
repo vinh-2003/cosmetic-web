@@ -32,11 +32,14 @@ public class Category {
     String imageUrl;
 
     @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "enabled")
+    @Builder.Default
     Boolean enabled = true;
 
     @OneToMany(mappedBy = "category")
+    @Builder.Default
     List<Product> products = new ArrayList<>();
 }

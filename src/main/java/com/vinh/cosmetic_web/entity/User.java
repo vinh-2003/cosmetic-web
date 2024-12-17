@@ -23,25 +23,26 @@ public class User {
     @Column(name = "user_id")
     String userId;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     String username;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     String lastName;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     String email;
 
     @Column(name = "phone")
     String phone;
 
     @Column(name = "enabled")
+    @Builder.Default
     Boolean enabled = true;
 
     @ManyToMany
@@ -50,14 +51,17 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_name")
     )
+    @Builder.Default
     Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
     Cart cart;
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     List<ShippingAddress> shippingAddresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     List<Order> orders = new ArrayList<>();
 }

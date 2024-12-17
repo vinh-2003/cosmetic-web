@@ -27,6 +27,7 @@ public class Order {
     User user;
 
     @Column(name = "total", nullable = false)
+    @Builder.Default
     Long total = 0L;
 
     @OneToOne
@@ -39,11 +40,14 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "voucher_id")
+    @Builder.Default
     Voucher voucher = null;
 
     @Column(name = "created_at")
-    LocalDateTime createdAt;
+    @Builder.Default
+    LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "order")
+    @Builder.Default
     List<OrderItem> orderItems = new ArrayList<>();
 }

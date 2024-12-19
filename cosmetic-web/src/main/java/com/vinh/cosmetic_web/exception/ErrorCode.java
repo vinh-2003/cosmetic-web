@@ -63,6 +63,8 @@ public enum ErrorCode {
     VOUCHER_USAGE_LIMIT_MUST_BE_POSITIVE(5013, "Usage limit must be a positive number", HttpStatus.BAD_REQUEST),
 
     SHIPPING_ADDRESS_NOT_EXISTED(6002, "Shipping address not existed", HttpStatus.NOT_FOUND),
+
+    CART_ITEM_NOT_EXISTED(7002, "Cart item not existed", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

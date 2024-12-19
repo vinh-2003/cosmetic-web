@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -36,7 +37,17 @@ public class SecurityConfig {
 //                .anyRequest()
 //                .authenticated());
 
-        httpSecurity.authorizeHttpRequests(request -> request.anyRequest().permitAll());
+        httpSecurity.authorizeHttpRequests(request -> request
+                .anyRequest()
+                .permitAll())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/authenticateTheUser")
+                        .permitAll()
+                        .successHandler(successHandler())
+                )
+                .logout(logout -> logout.permitAll())
+        ;
 
         httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
                         .decoder(customJwtDecoder)
@@ -75,5 +86,17 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return (request, response, authentication) -> {
+            // Kiểm tra quyền của người dùng
+            if (authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
+                response.sendRedirect("/admin/products"); // Chuyển hướng đến trang admin/products
+            } else {
+                response.sendRedirect("/home"); // Chuyển hướng đến trang home cho người dùng khác
+            }
+        };
     }
 }

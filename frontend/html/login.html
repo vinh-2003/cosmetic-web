@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <h1>LOG IN</h1>
+        <form>
+            <div id="message"></div>
+            <div>
+                <label for="username">Username: </label>
+                <input type="text" id="username">
+            </div>
+            <div>
+                <label for="password">Password: </label>
+                <input type="password" id="password">
+                <input type="checkbox" id="togglePassword" onclick="showPassword()">
+                <label for="togglePassword">Hiển thị mật khẩu</label>
+            </div>
+            <div>
+                <button type="button" onclick="">Log in</button>
+            </div>
+        </form>
+        <a href="register.html">Register</a>
+    </main>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+        }
+
+        function showPassword() {
+            const passwordField = document.getElementById('password');
+            const checkbox = document.getElementById('togglePassword');
+
+            if (checkbox.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -33,4 +33,15 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     @Builder.Default
     List<CartItem> cartItems = new ArrayList<>();
+
+    public Long calculateTotal() {
+        long total = 0L;
+
+        for (CartItem cartItem : cartItems) {
+            long itemTotal = cartItem.getPrice() * cartItem.getQuantity();
+            total += itemTotal;
+        }
+
+        return total;
+    }
 }

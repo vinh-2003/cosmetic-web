@@ -16,6 +16,6 @@ public class CartItemRequest {
     String productId;
 
     @NotNull(message = "QUANTITY_REQUIRED")
-    @Min(value = 1, message = "QUANTITY MUST BE POSITIVE")
+    @Min(value = 1, message = "QUANTITY_MUST_BE_POSITIVE")
     Integer quantity;
 }

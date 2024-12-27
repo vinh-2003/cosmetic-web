@@ -1,5 +1,6 @@
 package com.vinh.cosmetic_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +22,8 @@ public class OrderStatus {
     String statusId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
+    @JsonIgnore
     Order order;
 
     @Column(name = "status", nullable = false)

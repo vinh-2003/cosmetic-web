@@ -33,7 +33,12 @@ public class UserController {
     }
 
     @GetMapping
-    ApiResponse<List<UserResponse>> getUsers() {
+    ApiResponse<List<UserResponse>> getUsers(@RequestParam(value = "username", required = false) String username) {
+        if (username != null) {
+            return ApiResponse.<List<UserResponse>>builder()
+                    .result(userService.getUsers(username))
+                    .build();
+        }
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getUsers())
                 .build();
@@ -55,7 +60,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     ApiResponse<String> deleteUser(@PathVariable String userId) {
-        userService.deleteUser(userId);
+        userService.disableUser(userId);
         return ApiResponse.<String>builder().result("User has been deleted").build();
     }
 

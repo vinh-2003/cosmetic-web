@@ -1,6 +1,7 @@
 package com.vinh.cosmetic_web.mapper;
 
 import com.vinh.cosmetic_web.dto.request.VoucherRequest;
+import com.vinh.cosmetic_web.dto.request.VoucherUpdateRequest;
 import com.vinh.cosmetic_web.dto.response.VoucherResponse;
 import com.vinh.cosmetic_web.entity.Voucher;
 import org.mapstruct.Mapper;
@@ -12,5 +13,5 @@ public interface VoucherMapper {
 
     VoucherResponse toVoucherResponse(Voucher voucher);
 
-    void updateVoucher(@MappingTarget Voucher voucher, VoucherRequest request);
+    void updateVoucher(@MappingTarget Voucher voucher, VoucherUpdateRequest request);
 }

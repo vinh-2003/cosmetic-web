@@ -4,6 +4,7 @@ import com.vinh.cosmetic_web.dto.request.ProductRequest;
 import com.vinh.cosmetic_web.dto.response.ProductResponse;
 import com.vinh.cosmetic_web.entity.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
@@ -12,5 +13,6 @@ public interface ProductMapper {
 
     ProductResponse toProductResponse(Product product);
 
+    @Mapping(target = "category", ignore = true)
     void updateProduct(@MappingTarget Product product, ProductRequest request);
 }

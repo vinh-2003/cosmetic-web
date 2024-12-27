@@ -12,8 +12,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,10 @@ import org.springframework.stereotype.Service;
 public class CartService {
     UserRepository userRepository;
     CartItemRepository cartItemRepository;
+    CartRepository cartRepository;
 
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
     public void clearCart() {
         var context = SecurityContextHolder.getContext();
         var username = context.getAuthentication().getName();
@@ -32,5 +37,14 @@ public class CartService {
         for (CartItem cartItem : cart.getCartItems()) {
             cartItemRepository.delete(cartItem);
         }
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    public Cart getCart() {
+        var context = SecurityContextHolder.getContext();
+        var username = context.getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return cartRepository.findByUser(user);
     }
 }

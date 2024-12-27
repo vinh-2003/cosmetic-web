@@ -1,5 +1,6 @@
 package com.vinh.cosmetic_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,6 +21,7 @@ public class ShippingAddress {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     User user;
 
     @Column(name = "recipient_name", nullable = false)

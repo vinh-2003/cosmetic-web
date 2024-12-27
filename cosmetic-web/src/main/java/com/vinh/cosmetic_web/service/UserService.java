@@ -3,6 +3,8 @@ package com.vinh.cosmetic_web.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.vinh.cosmetic_web.entity.Cart;
+import com.vinh.cosmetic_web.repository.CartRepository;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +27,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +38,11 @@ public class UserService {
     RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    CartRepository cartRepository;
 
     public UserResponse createUser(UserCreationRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
+        if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USERNAME_EXISTED);
+        if (userRepository.existsByEmail(request.getEmail())) throw new AppException(ErrorCode.EMAIL_EXISTED);
 
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -47,7 +52,12 @@ public class UserService {
 
         user.setRoles(roles);
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        userRepository.save(user);
+        cartRepository.save(Cart.builder()
+                .user(user)
+                .build());
+
+        return userMapper.toUserResponse(user);
     }
 
     public UserResponse getMyInfo() {
@@ -59,22 +69,32 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
+    @Transactional
     @PostAuthorize("returnObject.username == authentication.name")
     public UserResponse updateUser(String userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        userMapper.updateUser(user, request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        if (userRepository.existsByEmail(request.getEmail()) && !request.getEmail().equals(user.getEmail())) throw new AppException(ErrorCode.EMAIL_EXISTED);
 
-        var roles = roleRepository.findAllById(request.getRoles());
-        user.setRoles(new HashSet<>(roles));
+        userMapper.updateUser(user, request);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public void deleteUser(String userId) {
         userRepository.deleteById(userId);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
+    public void disableUser(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        user.setEnabled(false);
+
+        userRepository.save(user);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,5 +107,10 @@ public class UserService {
     public UserResponse getUser(String id) {
         return userMapper.toUserResponse(
                 userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserResponse> getUsers(String username) {
+        return userRepository.findByUsernameContainingIgnoreCase(username).stream().map(userMapper::toUserResponse).toList();
     }
 }

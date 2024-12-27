@@ -17,8 +17,7 @@ public class VoucherRequest {
     String code;
 
     @NotNull(message = "VOUCHER_DISCOUNT_REQUIRED") // Bắt buộc phải có discount
-    @Min(value = 1, message = "VOUCHER_DISCOUNT_MUST_BE_AT_LEAST_1") // Discount không nhỏ hơn 1
-    @Max(value = 100, message = "VOUCHER_DISCOUNT_MUST_BE_LESS_THAN_100") // Discount không quá 100%
+    @Positive(message = "VOUCHER_DISCOUNT_MUST_BE_POSITIVE")
     Integer discount;
 
     @NotNull(message = "VOUCHER_START_DATE_REQUIRED") // Bắt buộc phải có ngày bắt đầu

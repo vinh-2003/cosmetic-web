@@ -1,5 +1,6 @@
 package com.vinh.cosmetic_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +25,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     User user;
 
     @Column(name = "total", nullable = false)
@@ -47,7 +49,7 @@ public class Order {
     @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     @Builder.Default
     List<OrderItem> orderItems = new ArrayList<>();
 }

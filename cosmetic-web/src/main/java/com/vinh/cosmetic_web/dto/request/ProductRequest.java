@@ -25,8 +25,8 @@ public class ProductRequest {
     @Min(value = 0, message = "PRODUCT_STOCK_QUANTITY_MUST_BE_POSITIVE") // Số lượng tồn kho không được âm
     Integer stockQuantity;
 
-    @NotNull(message = "CATEGORY_REQUIRED") // Category không được null
-    Category category;
+    @NotBlank(message = "CATEGORY_REQUIRED") // Category không được null
+    String categoryId;
 
     @NotBlank(message = "PRODUCT_BRAND_REQUIRED") // Không được để trống
     @Size(max = 100, message = "PRODUCT_BRAND_TOO_LONG") // Giới hạn độ dài

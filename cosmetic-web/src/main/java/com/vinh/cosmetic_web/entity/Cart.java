@@ -1,5 +1,7 @@
 package com.vinh.cosmetic_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +26,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JsonIgnore
     User user;
 
     @Column(name = "created_at")
@@ -34,6 +37,7 @@ public class Cart {
     @Builder.Default
     List<CartItem> cartItems = new ArrayList<>();
 
+    @JsonProperty("total")
     public Long calculateTotal() {
         long total = 0L;
 

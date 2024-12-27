@@ -1,6 +1,8 @@
 package com.vinh.cosmetic_web.service;
 
 import com.vinh.cosmetic_web.dto.request.CartItemRequest;
+import com.vinh.cosmetic_web.dto.request.CartItemUpdateRequest;
+import com.vinh.cosmetic_web.dto.response.CartItemResponse;
 import com.vinh.cosmetic_web.entity.Cart;
 import com.vinh.cosmetic_web.entity.CartItem;
 import com.vinh.cosmetic_web.entity.Product;
@@ -14,8 +16,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +32,8 @@ public class CartItemService {
     UserRepository userRepository;
     ProductRepository productRepository;
 
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
     public void addProductToCart(CartItemRequest request) {
         // Tìm giỏ hàng của người dùng hiện tại
         var context = SecurityContextHolder.getContext();
@@ -37,6 +43,8 @@ public class CartItemService {
 
         // Lấy sản phẩm từ kho
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED));
+
+        if (request.getQuantity() > product.getStockQuantity()) throw new AppException(ErrorCode.CART_ITEM_QUANTITY_INVALID);
 
         // Tìm CartItem dựa trên giỏ hàng và sản phẩm
         CartItem cartItem = cartItemRepository.findByCartAndProduct(cart, product);
@@ -56,10 +64,29 @@ public class CartItemService {
         cartItemRepository.save(cartItem);
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
+    public CartItemResponse updateCartItem(CartItemUpdateRequest request) {
+        CartItem cartItem = cartItemRepository.findById(request.getCartItemId()).orElseThrow(() -> new AppException(ErrorCode.CART_ITEM_NOT_EXISTED));
+
+        cartItem.setQuantity(request.getQuantity());
+
+        cartItemRepository.save(cartItem);
+
+        return CartItemResponse.builder()
+                .quantity(cartItem.getQuantity())
+                .price(cartItem.getPrice())
+                .cartTotal(cartItem.getCart().calculateTotal())
+                .build();
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
     public void removeCartItem(String cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }
 
+    @Transactional
     public void updateCartItemsPrice(Product product) {
         // Tìm tất cả các CartItem có liên quan đến sản phẩm
         List<CartItem> cartItems = cartItemRepository.findByProduct(product);

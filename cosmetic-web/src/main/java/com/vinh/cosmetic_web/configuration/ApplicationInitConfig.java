@@ -2,6 +2,9 @@ package com.vinh.cosmetic_web.configuration;
 
 import java.util.HashSet;
 
+import com.vinh.cosmetic_web.entity.Cart;
+import com.vinh.cosmetic_web.repository.CartRepository;
+import com.vinh.cosmetic_web.repository.CategoryRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +42,7 @@ public class ApplicationInitConfig {
             prefix = "spring",
             value = "datasource.driverClassName",
             havingValue = "com.mysql.cj.jdbc.Driver")
-    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
+    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository, CartRepository cartRepository) {
         log.info("Initializing application.....");
         return args -> {
             if (userRepository.findByUsername(ADMIN_USER_NAME).isEmpty()) {
@@ -67,6 +70,9 @@ public class ApplicationInitConfig {
                         .build();
 
                 userRepository.save(user);
+                cartRepository.save(Cart.builder()
+                        .user(user)
+                        .build());
                 log.warn("admin user has been created with default password: admin, please change it");
             }
             log.info("Application initialization completed .....");

@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -26,34 +25,29 @@ public class SecurityConfig {
             "/users", "/auth/token", "/auth/introspect", "/auth/logout", "/auth/refresh"
     };
 
+    private final String[] GUEST_PUBLIC_ENDPOINTS = {
+            "/categories", "/products", "/banners", "/products/**"
+    };
 
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated());
-
-        httpSecurity.authorizeHttpRequests(request -> request
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
+                .permitAll()
+                .requestMatchers(HttpMethod.GET, GUEST_PUBLIC_ENDPOINTS)
+                .permitAll()
                 .anyRequest()
-                .permitAll())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/authenticateTheUser")
-                        .permitAll()
-                        .successHandler(successHandler())
-                )
-                .logout(logout -> logout.permitAll())
-        ;
+                .authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
                         .decoder(customJwtDecoder)
                         .jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
+        httpSecurity.cors();
 
         return httpSecurity.build();
     }
@@ -86,17 +80,5 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        return (request, response, authentication) -> {
-            // Kiểm tra quyền của người dùng
-            if (authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
-                response.sendRedirect("/admin/products"); // Chuyển hướng đến trang admin/products
-            } else {
-                response.sendRedirect("/home"); // Chuyển hướng đến trang home cho người dùng khác
-            }
-        };
     }
 }

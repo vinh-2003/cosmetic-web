@@ -28,6 +28,7 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class OrderService {
+    private final ProductRepository productRepository;
     OrderRepository orderRepository;
     UserRepository userRepository;
     ShippingAddressRepository shippingAddressRepository;
@@ -35,6 +36,7 @@ public class OrderService {
     OrderItemRepository orderItemRepository;
     OrderMapper orderMapper;
     VoucherRepository voucherRepository;
+    CartService cartService;
 
     @PreAuthorize("hasRole('USER')")
     @Transactional
@@ -128,6 +130,38 @@ public class OrderService {
 
     @PreAuthorize("hasRole('USER')")
     @Transactional
+    public void updateOrderStatusForOrder(String orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_EXISTED));
+
+        OrderStatus orderStatus = OrderStatus.builder()
+                .status("Đã thanh toán")
+                .build();
+        orderStatusRepository.save(orderStatus);
+
+        for (OrderItem orderItem : order.getOrderItems()) {
+            Product product = orderItem.getProduct();
+            int orderedQuantity = orderItem.getQuantity();
+            int newStockQuantity = product.getStockQuantity() - orderedQuantity;
+
+            if (newStockQuantity < 0) {
+                throw new AppException(ErrorCode.PRODUCT_QUANTITY_NO_ENOUGH);
+            }
+
+            product.setStockQuantity(newStockQuantity);
+            productRepository.save(product);
+        }
+
+        cartService.clearCart();
+
+        order.setCurrentStatus(orderStatus);
+        orderRepository.save(order);
+
+        orderStatus.setOrder(order);
+        orderStatusRepository.save(orderStatus);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @Transactional
     public VoucherOrderResponse applyVoucherToOrder(VoucherOrderRequest request) {
         // Tìm đơn hàng theo orderId
         Order order = orderRepository.findById(request.getOrderId())
@@ -188,4 +222,33 @@ public class OrderService {
         return response;
     }
 
+    @PreAuthorize("hasRole('USER')")
+    public List<OrderResponse> getOrders() {
+        var context = SecurityContextHolder.getContext();
+        var username = context.getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return orderRepository.findByUserOrderByCreatedAtDesc(user).stream().map(orderMapper::toOrderResponse).toList();
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    public List<OrderResponse> getOrders(String orderId) {
+        var context = SecurityContextHolder.getContext();
+        var username = context.getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return orderRepository.findByUserAndOrderIdContainingIgnoreCaseOrderByCreatedAtDesc(user, orderId).stream().map(orderMapper::toOrderResponse).toList();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<OrderResponse> getOrdersForAdmin() {
+
+        return orderRepository.findByOrderByCreatedAtDesc().stream().map(orderMapper::toOrderResponse).toList();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<OrderResponse> getOrdersForAdmin(String orderId) {
+
+        return orderRepository.findByOrderIdContainingIgnoreCaseOrderByCreatedAtDesc(orderId).stream().map(orderMapper::toOrderResponse).toList();
+    }
 }

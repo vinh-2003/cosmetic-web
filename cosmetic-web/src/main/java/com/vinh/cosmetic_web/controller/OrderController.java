@@ -1,5 +1,6 @@
 package com.vinh.cosmetic_web.controller;
 
+import com.cloudinary.Api;
 import com.vinh.cosmetic_web.dto.request.ApiResponse;
 import com.vinh.cosmetic_web.dto.request.VoucherOrderRequest;
 import com.vinh.cosmetic_web.dto.response.OrderResponse;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,8 +31,8 @@ public class OrderController {
                 .build();
     }
 
-    @GetMapping
-    ApiResponse<OrderResponse> getOrder(@RequestParam String orderId) {
+    @GetMapping("/{orderId}")
+    ApiResponse<OrderResponse> getOrder(@PathVariable String orderId) {
         return ApiResponse.<OrderResponse>builder()
                 .result(orderService.getOrder(orderId))
                 .build();
@@ -37,10 +40,15 @@ public class OrderController {
 
     @PutMapping("/{orderId}")
     ApiResponse<OrderResponse> updateOrder(@PathVariable("orderId") String orderId, @RequestParam("shippingAddressId") String shippingAddressId) {
-        OrderResponse order = orderService.updateOrder(orderId, shippingAddressId);
         return ApiResponse.<OrderResponse>builder()
-                .result(order)
+                .result(orderService.updateOrder(orderId, shippingAddressId))
                 .build();
+    }
+
+    @PutMapping()
+    ApiResponse<Void> updateOrderStatusForOrder(@RequestParam("orderId") String orderId) {
+        orderService.updateOrderStatusForOrder(orderId);
+        return ApiResponse.<Void>builder().build();
     }
 
     @DeleteMapping("/{orderId}")
@@ -53,6 +61,18 @@ public class OrderController {
     ApiResponse<VoucherOrderResponse> applyVoucherToOrder(@RequestBody VoucherOrderRequest request) {
         return ApiResponse.<VoucherOrderResponse>builder()
                 .result(orderService.applyVoucherToOrder(request))
+                .build();
+    }
+
+    @GetMapping
+    ApiResponse<List<OrderResponse>> getOrders(@RequestParam(value = "orderId", required = false) String orderId) {
+        if (orderId != null) {
+            return ApiResponse.<List<OrderResponse>>builder()
+                    .result(orderService.getOrders(orderId))
+                    .build();
+        }
+        return ApiResponse.<List<OrderResponse>>builder()
+                .result(orderService.getOrders())
                 .build();
     }
 }

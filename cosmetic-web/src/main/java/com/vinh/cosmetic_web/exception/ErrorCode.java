@@ -26,6 +26,7 @@ public enum ErrorCode {
     EMAIL_REQUIRED(1015, "Email không được để trống", HttpStatus.BAD_REQUEST),
     EMAIL_INVALID(1016, "Định dạng email không hợp lệ", HttpStatus.BAD_REQUEST),
     PHONE_INVALID(1017, "Số điện thoại phải có đúng 10 chữ số", HttpStatus.BAD_REQUEST),
+    ACCOUNT_DISABLED(1018, "Tài khoản đã bị vô hiệu hoá", HttpStatus.BAD_REQUEST),
 
     CATEGORY_NOT_EXISTED(2002, "Danh mục không tồn tại", HttpStatus.NOT_FOUND),
     CATEGORY_NAME_REQUIRED(2003, "Tên danh mục không được để trống", HttpStatus.BAD_REQUEST),
@@ -91,6 +92,7 @@ public enum ErrorCode {
     CART_EMPTY(9002, "Giỏ hàng trống", HttpStatus.BAD_REQUEST),
 
     ORDER_NOT_EXISTED(10002, "Đơn hàng không tồn tại", HttpStatus.NOT_FOUND),
+    PRODUCT_QUANTITY_NO_ENOUGH(8008, "Số lượng sản phẩm trong kho không đủ", HttpStatus.BAD_REQUEST),
 
     ;
 

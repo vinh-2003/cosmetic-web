@@ -7,6 +7,7 @@ const returnBtn = document.getElementById('returnBtn');
 const voucherCode = document.getElementById('voucherCode');
 const submitVoucherBtn = document.getElementById('submitVoucherBtn');
 const messageCode = document.getElementById('messageCode');
+const paymentBtn = document.getElementById('paymentBtn');
 
 async function fetchAndRenderResource() {
     const messageDiv = document.getElementById('message');
@@ -15,7 +16,7 @@ async function fetchAndRenderResource() {
     console.log(orderId);
     try {
         const response = orderId ?
-            await fetch(`http://localhost:8080/orders?orderId=${orderId}`, {
+            await fetch(`http://localhost:8080/orders/${orderId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -272,6 +273,59 @@ async function applyVoucher() {
                     break;
             }
         }
+    } catch (error) {
+        messageDiv.textContent = 'Có lỗi xảy ra khi kết nối đến server.';
+    }
+}
+
+async function startPayment() {
+    const messageDiv = document.getElementById('message');
+    const amount = parseInt(orderTotalKm.textContent);
+    console.log(amount);
+    try {
+        const response = await fetch(`http://localhost:8080/api/payment/create_payment?amount=${amount}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        const result = await response.json();
+
+        if (result.code === 1000) {
+            const kq = result.result;
+            
+            window.location.href = kq.url;
+        } else {
+            switch (response.status) {
+                case 400:
+                    messageCode.textContent = result.message;
+                    break;
+                case 401:
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Phiên đăng nhập đã hết hạn',
+                        text: 'Vui lòng đăng nhập lại.',
+                    }).then(() => {
+                        localStorage.removeItem('token'); // Xóa token cũ
+                        window.location.href = "login.html"; // Điều hướng đến trang đăng nhập
+                    });
+                    break;
+                case 403:
+                    window.location.href = "403.html";
+                    break;
+                case 404:
+                    window.location.href = "404.html";
+                    break;
+                case 500:
+                    window.location.href = "500.html";
+                    break;
+                default:
+                    messageDiv.textContent = `${response.status} - ${response.statusText}`;
+                    break;
+            }
+        }
+
     } catch (error) {
         messageDiv.textContent = 'Có lỗi xảy ra khi kết nối đến server.';
     }

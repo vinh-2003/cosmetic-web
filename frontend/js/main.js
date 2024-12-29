@@ -62,7 +62,7 @@ async function logout() {
             });
 
             if (confirmLogout.isConfirmed) {
-                localStorage.removeItem('token');
+                localStorage.clear();
                 window.location.href = 'login.html';
             }
         } else {

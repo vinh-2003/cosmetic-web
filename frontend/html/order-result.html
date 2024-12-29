@@ -23,7 +23,7 @@
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" id="accountA" href="account.html">Thông tin tài khoản</a></li>
                 <li><a class="dropdown-item" href="address-list.html">Địa chỉ nhận hàng</a></li>
-                <li><a class="dropdown-item" href="order-list.html">Đơn mua</a></li>
+                <li><a class="dropdown-item" href="#">Đơn mua</a></li>
                 <li><a class="dropdown-item" id="logoutA" href="#">Đăng xuất</a></li>
               </ul>
         </div>
@@ -48,42 +48,20 @@
     </header>
 
     <main class="container-lg p-3">
+        <h1 class="col-6 mx-auto mb-3">Kết quả đặt hàng</h1>
         <div class="mb-3 text-danger" id="message"></div>
-        <div class="row mb-5">
-            <div id="categoryNameContainer" style="height: 454px;" class="col-2 overflow-auto">
-                <ul class="list-group" id="categoryName-list">
-
-                </ul>
-            </div>
-            <section id="carouselExample" class="carousel slide col-10">
-                <div id="banner-section" class="carousel-inner">
-
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </section>
+        <div class="col-6 mb-5 mx-auto d-none" id="successDiv">
+            <p class="text-primary mb-3">Đơn hàng: <span id="orderIdSuccessSpan"></span></p>
+            <p class="text-primary mb-3">Trạng thái: Đặt hàng thành công</p>
+            <a href="home.html">Quay lại trang chủ</a>
         </div>
-        <section class="mb-5">
-            <h1 class="text-center text-secondary mb-3">Tất cả danh mục</h1>
-            <div id="category-section" class="row mb-3">
-
-            </div>
-        </section>
-        <section class="mb-5">
-            <h1 class="text-center text-secondary mb-3">Tất cả sản phẩm</h1>
-            <div id="product-section" class="row mb-3">
-
-            </div>
-        </section>
+        <div class="col-6 mb-5 mx-auto d-none" id="faildDiv">
+            <p class="text-primary mb-3">Đơn hàng: <span id="orderIdFaildSpan"></span></p>
+            <p class="text-danger mb-3">Trạng thái: Thanh toán thất bại</p>
+            <a href="home.html">Quay lại trang chủ</a>
+        </div>
     </main>
+
     <footer class="container-lg rounded-top px-3 py-5" style="background-color: #66ccff;">
         <div class="row">
             <div class="col-4 p-3">
@@ -131,7 +109,7 @@
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-    <script src="../js/home.js"></script>
+    <script src="../js/order-result.js"></script>
 </body>
 
 </html>

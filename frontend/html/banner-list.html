@@ -19,13 +19,14 @@
             <a class="text-decoration-none px-3 text-light" href="login.html">Đăng nhập</a>
         </div>
         <div class="d-none justify-content-end pb-3 dropdown" id="usernameContainer">
-            <a class="btn text-light dropdown-toggle" id="usernameA" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+            <a class="btn text-light dropdown-toggle" id="usernameA" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false"></a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Thông tin tài khoản</a></li>
                 <li><a class="dropdown-item" href="#">Địa chỉ nhận hàng</a></li>
                 <li><a class="dropdown-item" href="#">Đơn mua</a></li>
                 <li><a class="dropdown-item" id="logoutA" href="#">Đăng xuất</a></li>
-              </ul>
+            </ul>
         </div>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
@@ -71,6 +72,9 @@
                                     mã giảm giá</a></li>
                             <li class="list-group-item"><a class="text-decoration-none" href="user-list.html">Quản lý
                                     người dùng</a></li>
+                            <li class="list-group-item"><a class="text-decoration-none"
+                                    href="order-list-admin.html">Quản lý
+                                    đơn hàng</a></li>
                         </ul>
                     </div>
                 </div>
@@ -82,7 +86,8 @@
         </div>
         <div class="mb-3 text-danger" id="message"></div>
         <div class="mb-3 col-6">
-            <input class="form-control" type="text" id="link" placeholder="Nhập liên kết banner cần tìm" onkeydown="searchBanner(event)">
+            <input class="form-control" type="text" id="link" placeholder="Nhập liên kết banner cần tìm"
+                onkeydown="searchBanner(event)">
         </div>
         <div class="row mb-3 p-3 rounded border border-secondary">
             <div class="col-2"></div>
@@ -107,18 +112,28 @@
                 <p class="fw-bold">Giới thiệu</p>
                 <div class="row">
                     <ul class="list-group col-6">
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Giới thiệu về chúng tôi</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Giới thiệu về cửa hàng</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Mua sắm an toàn</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Thời gian giao hàng</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Chính sách bảo mật</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Giới thiệu về chúng tôi</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Giới thiệu về cửa hàng</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Mua sắm an toàn</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Thời gian giao hàng</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Chính sách bảo mật</a></li>
                     </ul>
                     <ul class="list-group col-6">
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Chúng tôi là ai</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Dịch vụ của chúng tôi</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Dự án</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Liên hệ</a></li>
-                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a class="text-decoration-none" href="#">Đổi mới</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Chúng tôi là ai</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Dịch vụ của chúng tôi</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Dự án</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Liên hệ</a></li>
+                        <li class="list-group-item border-0" style="background-color: #66ccff;"><a
+                                class="text-decoration-none" href="#">Đổi mới</a></li>
                     </ul>
                 </div>
             </div>
@@ -126,8 +141,7 @@
                 <p class="fw-bold">Nhận thông báo từ cửa hàng</p>
                 <p>Nhận email cập nhật về cửa hàng mới nhất và các ưu đãi đặc biệt của chúng tôi</p>
                 <form class="d-flex flex-grow-1" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nhập email của bạn"
-                        aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Nhập email của bạn" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Đăng ký</button>
                 </form>
             </div>

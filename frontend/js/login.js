@@ -27,6 +27,7 @@ async function login() {
             messageDiv.textContent = "Đăng nhập thành công";
 
             const auth = result.result;
+            localStorage.removeItem('orderId');
             localStorage.setItem('token', auth.token);
 
             if (username == 'admin') {
@@ -35,7 +36,12 @@ async function login() {
                 window.location.href = 'home.html';
             }
         } else {
-            messageDiv.textContent = "Sai tên đăng nhập hoặc mật khẩu";
+            if (result.code === 1018) {
+                messageDiv.textContent = result.message;
+            } else {
+                messageDiv.textContent = "Sai tên đăng nhập hoặc mật khẩu";
+            }
+            
         }
 
     } catch (error) {

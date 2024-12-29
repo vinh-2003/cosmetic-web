@@ -16,7 +16,7 @@ async function fetchAndRenderVoucherList() {
         if (result.code === 1000) {
             const vouchers = result.result;
             if (vouchers.length === 0) {
-                messageDiv.textContent = 'Không có voucher nào!';
+                messageDiv.textContent = 'Không có mã giảm giá nào!';
                 return;
             }
             renderVoucherList(vouchers); // Gọi hàm hiển thị danh sách
@@ -211,7 +211,7 @@ async function searchVoucher(event) {
             if (result.code === 1000) {
                 const vouchers = result.result;
                 if (vouchers.length === 0) {
-                    messageDiv.textContent = 'Không có voucher nào!';
+                    messageDiv.textContent = 'Không có mã giảm giá nào!';
                     return;
                 }
                 renderVoucherList(vouchers);

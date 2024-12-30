@@ -4,11 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fac821a-02d0-4e9f-a669-524de62f1ba9" name="Changes" comment="" />
+    <list default="true" id="6fac821a-02d0-4e9f-a669-524de62f1ba9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../frontend/html/authenticate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/html/order-detail-admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/html/order-detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/html/password-change.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/js/authenticate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/js/order-detail-admin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/js/order-detail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/js/password-change.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/403.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/403.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/500.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/address-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/address-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/address-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/address-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/address-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/address-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/banner-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/banner-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/banner-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/banner-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/banner-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/banner-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/category-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/category-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/category-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/category-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/category-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/category-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/home-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/home-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/order-change-address.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/order-change-address.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/order-list-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/order-list-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/order-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/order-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/order-preview.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/order-preview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/order-result.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/order-result.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/product-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/product-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/product-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/product-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/product-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/product-search.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/product-search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/product-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/product-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/user-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/user-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/voucher-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/voucher-add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/voucher-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/voucher-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/html/voucher-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/html/voucher-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/order-list-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/order-list-admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/order-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/order-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/order-preview.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/order-preview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/product-detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/product-detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/product-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/product-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/js/product-search.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/js/product-search.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -20,7 +75,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
@@ -48,7 +103,8 @@
     &quot;Maven.cosmetic-web [clean].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
   }
 }</component>
   <component name="RunManager">

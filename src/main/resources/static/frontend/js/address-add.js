@@ -30,36 +30,4 @@ async function submitAddress() {
                 text: 'Thêm địa chỉ nhận hàng thành công!',
             });
             window.location.href = "address-list.html";
-        } else {
-            switch (response.status) {
-                case 400:
-                    messageDiv.textContent = result.message;
-                    break;
-                case 401:
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Phiên đăng nhập đã hết hạn',
-                        text: 'Vui lòng đăng nhập lại.',
-                    }).then(() => {
-                        localStorage.removeItem('token'); // Xóa token cũ
-                        window.location.href = "login.html"; // Điều hướng đến trang đăng nhập
-                    });
-                    break;
-                case 403:
-                    window.location.href = "403.html";
-                    break;
-                case 404:
-                    window.location.href = "404.html";
-                    break;
-                case 500:
-                    window.location.href = "500.html";
-                    break;
-                default:
-                    messageDiv.textContent = `${response.status} - ${response.statusText}`;
-                    break;
-            }
-        }
-    } catch (error) {
-        messageDiv.textContent = 'Có lỗi xảy ra khi kết nối đến server.';
-    }
-}
+      wqe
